@@ -1,8 +1,13 @@
 import React from 'react';
+import Checkbox from '../components/Checkbox';
 
 function MainContent (){
     return (
-        <main>MainContent</main>
+        <main>
+            <Checkbox />
+            <Checkbox />
+            <Checkbox />
+        </main>
     )
 }
 
