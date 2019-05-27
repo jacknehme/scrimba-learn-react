@@ -2,38 +2,43 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import TodoItem from './components/TodoItem';
+import todosData from './todosData';
 
-import Joke from './components/Joke';
 
-function App () {
+function App() {
+  const todoItemComponents = todosData.map(item => <TodoItem key={item.id} todo={item} />);
   return (
     <div>
-      <Joke 
-        question={'Why did the chicken cross the road?'}
-        punchLine={'To get to the other side!'}
-      />
-      <Joke 
-        question={''}
-        punchLine={'It’s hard to explain puns to kleptomaniacs because they always take things literally.'}
-      />
-      <Joke 
-        question={'What is the hardest shape to get out of?'}
-        punchLine={'A trap-azoid.'}
-      />
-      <Joke 
-        question={'Why did the crab never share?'}
-        punchLine={'Because he’s shellfish.'}
-      />
-      <Joke 
-        question={''}
-        punchLine={'Did you hear about the monkeys who shared an Amazon account? They were Prime mates.'}
-      />
-
+      {todoItemComponents}
     </div>
   );
 }
 
+// import Product from './components/Product';
+// import productsData from './vschoolProducts';
 
+// function App () {
+//   const productComponents = productsData.map( product => <Product key={product.id} product={product} />);
+//   return (
+//     <div>
+//       {productComponents}
+//     </div>
+//   );
+// }
+
+// import Joke from './components/Joke';
+// import jokesData from './jokesData';
+
+// function App () {
+//   const jokeComponents = jokesData.map( joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />);  
+
+//   return (
+//     <div>
+//       {jokeComponents}
+//     </div>
+//   );
+// }
 
 // import Header from './components/Header';
 // import MainContent from './components/MainContent';
