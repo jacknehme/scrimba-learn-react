@@ -1,19 +1,72 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
-import TodoItem from './components/TodoItem';
-import todosData from './todosData';
+/*
 
+Challenge:
+1. Convert all 3 components to be class-based
+2. Fix the small bug
 
-function App() {
-  const todoItemComponents = todosData.map(item => <TodoItem key={item.id} todo={item} />);
-  return (
-    <div>
-      {todoItemComponents}
-    </div>
-  );
+*/
+
+// import React from "react"
+// import ReactDOM from "react-dom"
+
+// #1
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header username="Jack"/>
+        <Greeting />
+      </div>
+    )
+  }
 }
+
+// #2
+class Header extends React.Component {
+  render() {
+    return (
+      <header>
+        <p>Welcome, {this.props.username}!</p>
+      </header>
+    )
+  }
+}
+
+// #3
+class Greeting extends React.Component {
+
+  timeOfDay() {
+    const date = new Date();
+    const hours = date.getHours();
+    if (hours < 12) {
+      return "morning";
+    } else if (hours >= 12 && hours < 17) {
+      return "afternoon";
+    } else {
+      return "night";
+    }
+  }
+
+  render() {
+    return <h1>Good {this.timeOfDay()} to you, sir or madam!</h1>
+  }
+}
+// import TodoItem from './components/TodoItem';
+// import todosData from './todosData';
+
+
+// function App() {
+//   const todoItemComponents = todosData.map(item => <TodoItem key={item.id} todo={item} />);
+//   return (
+//     <div>
+//       {todoItemComponents}
+//     </div>
+//   );
+// }
 
 // import Product from './components/Product';
 // import productsData from './vschoolProducts';
