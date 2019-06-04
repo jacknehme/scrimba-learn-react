@@ -1,23 +1,39 @@
-import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
 
-
-
+import React from 'react';
 import TodoItem from './components/TodoItem';
 import todosData from './todosData';
 
 class App extends React.Component {
-  constructor (){
+  constructor() {
     super();
-    this.state= {
+    this.state = {
       todos: todosData
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  render(){
-    const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item} />)
+  handleChange(id) {
+    this.setState( prevState => {
+      
+      const updatedArray = prevState.todos.map( x => {
+        if( x.id === id){
+          x.completed = !x.completed;
+        }
+        return x;
+      });
+
+      return {
+        todos: updatedArray 
+      }
+
+    })
+  }
+
+  render() {
+    const todoItems = this.state.todos.map(item => <TodoItem key={item.id} handleChange={this.handleChange} item={item} />)
     return (
       <div className="todo-list">
         {todoItems}
@@ -27,7 +43,45 @@ class App extends React.Component {
 
 }
 
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       count: 0
+//     }
+//     this.handleClick = this.handleClick.bind(this);
+//   }
 
+//   handleClick() {
+//     this.setState(prevState => {
+//       return  {
+//         count: prevState.count + 1
+//       }
+//     })
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1>{this.state.count}</h1>
+//         <button onClick={this.handleClick}>Change!</button>
+//       </div>
+//     )
+//   }
+// }
+
+// // https://reactjs.org/docs/events.html#supported-events
+
+// function App() {
+//   return (
+//     <div>
+//       <img onMouseOver={()=>console.log('Hovered!')} src="https://www.fillmurray.com/200/100"/>
+//       <br />
+//       <br />
+//       <button onClick={() => console.log('Click Button!')}>Click me!</button>
+//     </div>
+//   )
+// }
 
 // Given a stateless functional component, add state to it
 // state should have a property called `isLoggedIn` which is a boolean
