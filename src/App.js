@@ -2,46 +2,114 @@
 import './App.css';
 
 
-import React from 'react';
+import React, { Component } from 'react';
 import TodoItem from './components/TodoItem';
 import todosData from './todosData';
 
-class App extends React.Component {
+/*
+Challenge:
+
+Given a stateless functional component:
+1. Follow the steps necessary to add state to it,
+2. Have state keep track of whether the user is logged in or not
+3. Add a button that logs the user in/out
+    a. extra challenge - make the button display "log in" if they're not logged in and "log out" if they are
+4. Display text that says "Logged in" if the user is logged in, or "Logged out" if they're not.
+*/
+class App extends Component {
   constructor() {
     super();
     this.state = {
-      todos: todosData
-    };
-    this.handleChange = this.handleChange.bind(this);
+      isLoggedIn: false
+    }
+    // this.handleClick = this.handleClick.bind(this); <- if using 'function' type method
   }
 
-  handleChange(id) {
-    this.setState( prevState => {
-      
-      const updatedArray = prevState.todos.map( x => {
-        if( x.id === id){
-          x.completed = !x.completed;
-        }
-        return x;
-      });
-
+  handleClick = () => {
+    this.setState(prevState => {
       return {
-        todos: updatedArray 
+        isLoggedIn: !prevState.isLoggedIn
       }
-
     })
   }
-
+ 
   render() {
-    const todoItems = this.state.todos.map(item => <TodoItem key={item.id} handleChange={this.handleChange} item={item} />)
     return (
-      <div className="todo-list">
-        {todoItems}
+      <div>
+        <h1>{this.state.isLoggedIn ?  "Logged in" : "Logged out" }</h1>
+        <button onClick={this.handleClick}>{this.state.isLoggedIn ? 'Log out' : 'Log in'}</button>
       </div>
     )
   }
 
 }
+
+
+// import Conditional from './components/Conditional';
+
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       isLoading: true
+//     }
+//   }
+
+//   componentDidMount() {
+//     setTimeout(() => {
+//       this.setState({
+//         isLoading: false
+//       })
+//     }, 1500)
+//   }
+
+//   render() {
+//     return (
+//           <div>
+//                 {this.state.isLoading ? 
+//                 <h1>Loading...</h1> :
+//                 <Conditional />}
+//             </div>
+//     )
+//   }
+// }
+
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       todos: todosData
+//     };
+//     this.handleChange = this.handleChange.bind(this);
+//   }
+
+//   handleChange(id) {
+//     this.setState( prevState => {
+
+//       const updatedArray = prevState.todos.map( x => {
+//         if( x.id === id){
+//           x.completed = !x.completed;
+//         }
+//         return x;
+//       });
+
+//       return {
+//         todos: updatedArray 
+//       }
+
+//     })
+//   }
+
+//   render() {
+//     const todoItems = this.state.todos.map(item => <TodoItem key={item.id} handleChange={this.handleChange} item={item} />)
+//     return (
+//       <div className="todo-list">
+//         {todoItems}
+//       </div>
+//     )
+//   }
+
+// }
 
 // class App extends React.Component {
 //   constructor() {
