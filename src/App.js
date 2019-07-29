@@ -6,6 +6,139 @@ import React, { Component } from 'react';
 import TodoItem from './components/TodoItem';
 import todosData from './todosData';
 
+// lesson 41 - React Forms Part 1
+// React Docs about Forms: https://reactjs.org/docs/forms.html
+// Formik - library for react forms https://github.com/jaredpalmer/formik
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      firstName: '',
+      lastName: '',
+      isFriendly: true,
+      gender: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+
+  }
+
+  handleChange(event) {
+    const { name, value, type, checked } = event.target;
+
+    if (type === 'checkbox') {
+      this.setState({
+        [name]: checked
+      })
+    } else {
+      this.setState({
+        [name]: value
+      })
+    }
+
+  }
+
+
+  render() {
+    return (
+      <form>
+        <input
+          type="text"
+          name="firstName"
+          value={this.state.firstName}
+          placeholder="First Name"
+          onChange={this.handleChange} />
+        <br />
+        <input
+          type="text"
+          name="lastName"
+          value={this.state.lastName}
+          placeholder="Last Name"
+          onChange={this.handleChange} />
+        <br />
+
+
+        <textarea 
+          value={"Some default value"}
+          onChange={this.handleChange} />
+        <br />
+
+        <label>
+          <input
+            type="checkbox"
+            name="isFriendly"
+            checked={this.state.isFriendly}
+            onChange={this.handleChange}
+          /> Is Friendly?
+        </label>
+        <br />
+
+        <label>
+          <input
+            type="radio"
+            name="gender"
+            value="male"
+            checked={this.state.gender === 'male'}
+            onChange={this.handleChange}
+          /> Male
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="gender"
+            value="female"
+            checked={this.state.gender === 'female'}
+            onChange={this.handleChange}
+          /> Female
+        </label>
+        <br />
+
+        <h1>{this.state.firstName} {this.state.lastName}</h1>
+        <h2>You are {this.state.gender}</h2>
+      </form>
+    )
+  }
+
+}
+
+
+// // lesson 40 - Fetching data from an API with React
+// // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+// // https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
+// // https://swapi.co/
+// class App extends Component {
+//   constructor(){
+//     super();
+//     this.state = {
+//       loading: false,
+//       character: {}
+//     };
+//   }
+
+//   componentDidMount(){
+//     this.setState({ loading: true })
+
+//     fetch('https://swapi.co/api/people/1')
+//       .then(response => response.json())
+//       .then(data => {
+//         this.setState({
+//           loading: false,
+//           character: data
+//         })
+//         console.log(data)
+//       })
+//   }
+
+//   render(){
+//     const text = this.state.loading ? 'Loading...' : this.state.character.name;
+//     return (
+//       <div>
+//         <p>{text}</p>
+//       </div>
+//     )
+//   }
+// }
+
 /*
 Challenge:
 
@@ -16,33 +149,33 @@ Given a stateless functional component:
     a. extra challenge - make the button display "log in" if they're not logged in and "log out" if they are
 4. Display text that says "Logged in" if the user is logged in, or "Logged out" if they're not.
 */
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false
-    }
-    // this.handleClick = this.handleClick.bind(this); <- if using 'function' type method
-  }
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       isLoggedIn: false
+//     }
+//     // this.handleClick = this.handleClick.bind(this); <- if using 'function' type method
+//   }
 
-  handleClick = () => {
-    this.setState(prevState => {
-      return {
-        isLoggedIn: !prevState.isLoggedIn
-      }
-    })
-  }
- 
-  render() {
-    return (
-      <div>
-        <h1>{this.state.isLoggedIn ?  "Logged in" : "Logged out" }</h1>
-        <button onClick={this.handleClick}>{this.state.isLoggedIn ? 'Log out' : 'Log in'}</button>
-      </div>
-    )
-  }
+//   handleClick = () => {
+//     this.setState(prevState => {
+//       return {
+//         isLoggedIn: !prevState.isLoggedIn
+//       }
+//     })
+//   }
 
-}
+//   render() {
+//     return (
+//       <div>
+//         <h1>{this.state.isLoggedIn ?  "Logged in" : "Logged out" }</h1>
+//         <button onClick={this.handleClick}>{this.state.isLoggedIn ? 'Log out' : 'Log in'}</button>
+//       </div>
+//     )
+//   }
+
+// }
 
 
 // import Conditional from './components/Conditional';
@@ -74,6 +207,7 @@ class App extends Component {
 //   }
 // }
 
+// lesson 39 - the last of the todo exercises
 // class App extends React.Component {
 //   constructor() {
 //     super();

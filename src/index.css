@@ -62,3 +62,9 @@ input[type=checkbox] {
 input[type=checkbox]:focus {
   outline: 0;
 }
+
+.checked{
+  color: gray;
+  text-decoration-line: line-through;
+  font-style: italic;
+}
