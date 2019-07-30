@@ -16,7 +16,8 @@ class App extends Component {
       firstName: '',
       lastName: '',
       isFriendly: true,
-      gender: ''
+      gender: '',
+      favColor: 'blue'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,10 +39,16 @@ class App extends Component {
 
   }
 
+  handleSubmit(event){
+    event.preventDefault();
+    console.log(event);
+
+  }
+
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           name="firstName"
@@ -93,8 +100,22 @@ class App extends Component {
         </label>
         <br />
 
+        <label>Favorite Color:</label> 
+        <select 
+          name="favColor"
+          value={this.state.favColor}
+          onChange={this.handleChange}>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="yellow">Yellow</option>
+        </select>
+
         <h1>{this.state.firstName} {this.state.lastName}</h1>
         <h2>You are {this.state.gender}</h2>
+        <h2>Your favorite color is {this.state.favColor}</h2>
+        <button >Submit</button>
       </form>
     )
   }
