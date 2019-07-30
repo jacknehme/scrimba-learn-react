@@ -6,26 +6,45 @@ import React, { Component } from 'react';
 import TodoItem from './components/TodoItem';
 import todosData from './todosData';
 
-// lesson 41 - React Forms Part 1
-// React Docs about Forms: https://reactjs.org/docs/forms.html
-// Formik - library for react forms https://github.com/jaredpalmer/formik
+/**
+ * Challenge: Wire up the partially-finished travel form so that it works!
+ * Remember to use the concept of controlled forms
+ * https://reactjs.org/docs/forms.html
+ * 
+ * All information should be populating the text below the form in real-time
+ * as you're filling it out
+ * 
+ * This exercise is adapted from the V School curriculum on vanilla JS forms:
+ * https://coursework.vschool.io/travel-form/
+ * 
+ * All of our challenges and learning resources are open for the public
+ * to play around with and learn from at https://coursework.vschool.io
+ */
 class App extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       firstName: '',
       lastName: '',
-      isFriendly: true,
-      gender: '',
-      favColor: 'blue'
-    };
+      age: '',
+      gender: 'other',
+      destination: '',
+      vegetarian: false,
+      kosher: false,
+      lactoseFree: false
+
+    }
 
     this.handleChange = this.handleChange.bind(this);
-
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    alert(`First Name: ${this.state.firstName}\nLast Name: ${this.state.lastName}\nAge: ${this.state.age}\nGender: ${this.state.gender}\nLocation: ${this.state.destination}\nDietary restrictions: ${this.state.vegetarian ? 'Vegetarian, ' : ''}${this.state.lactoseFree ? 'Lactose Free, ' : ''}${this.state.kosher ? 'Kosher' : ''}`)
   }
 
   handleChange(event) {
-    const { name, value, type, checked } = event.target;
+    const { type, name, value, checked } = event.target;
 
     if (type === 'checkbox') {
       this.setState({
@@ -36,91 +55,231 @@ class App extends Component {
         [name]: value
       })
     }
-
   }
-
-  handleSubmit(event){
-    event.preventDefault();
-    console.log(event);
-
-  }
-
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="firstName"
-          value={this.state.firstName}
-          placeholder="First Name"
-          onChange={this.handleChange} />
-        <br />
-        <input
-          type="text"
-          name="lastName"
-          value={this.state.lastName}
-          placeholder="Last Name"
-          onChange={this.handleChange} />
-        <br />
-
-
-        <textarea 
-          value={"Some default value"}
-          onChange={this.handleChange} />
-        <br />
-
-        <label>
+      <main>
+        <form onSubmit={this.handleSubmit}>
           <input
-            type="checkbox"
-            name="isFriendly"
-            checked={this.state.isFriendly}
+            type="text"
+            name="firstName"
+            value={this.state.firstName}
             onChange={this.handleChange}
-          /> Is Friendly?
-        </label>
-        <br />
-
-        <label>
+            placeholder="First Name" />
+          <br />
           <input
-            type="radio"
-            name="gender"
-            value="male"
-            checked={this.state.gender === 'male'}
+            type="text"
+            name="lastName"
+            value={this.state.lastName}
             onChange={this.handleChange}
-          /> Male
-        </label>
-        <label>
+            placeholder="Last Name" />
+          <br />
           <input
-            type="radio"
-            name="gender"
-            value="female"
-            checked={this.state.gender === 'female'}
+            type="number"
+            name="age"
+            value={this.state.age}
             onChange={this.handleChange}
-          /> Female
-        </label>
-        <br />
+            placeholder="Age" />
+          <br />
 
-        <label>Favorite Color:</label> 
-        <select 
-          name="favColor"
-          value={this.state.favColor}
-          onChange={this.handleChange}>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="red">Red</option>
-          <option value="orange">Orange</option>
-          <option value="yellow">Yellow</option>
-        </select>
+          {/* Create radio buttons for gender here */}
+          <br />
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="male"
+              checked={this.state.gender === 'male'}
+              onChange={this.handleChange} /> Male
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="female"
+              checked={this.state.gender === 'female'}
+              onChange={this.handleChange} /> Female
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="other"
+              checked={this.state.gender === 'other'}
+              onChange={this.handleChange} /> Other
+          </label>
 
-        <h1>{this.state.firstName} {this.state.lastName}</h1>
-        <h2>You are {this.state.gender}</h2>
-        <h2>Your favorite color is {this.state.favColor}</h2>
-        <button >Submit</button>
-      </form>
+          {/* Create select box for location here */}
+          <br />
+          <select
+            value={this.state.destination}
+            name="destination"
+            onChange={this.handleChange}>
+            <option value="">-- Please Choice a destination --</option>
+            <option value="Aspen, Colorado">Aspen, Colorado</option>
+            <option value="Harbi, China">Harbi, China</option>
+            <option value="Wanaka, New Zealand">Wanaka, New Zealand</option>
+          </select>
+
+          {/* Create check boxes for dietary restrictions here */}
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              name="vegetarian"
+              checked={this.state.vegetarian}
+              onChange={this.handleChange} />Vegetarian?
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="lactoseFree"
+              checked={this.state.lactoseFree}
+              onChange={this.handleChange} />Lactose Free?
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="kosher"
+              checked={this.state.kosher}
+              onChange={this.handleChange} />Kosher?
+          </label>
+          <br />
+
+          <button>Submit</button>
+        </form>
+        <hr />
+        <h2>Entered information:</h2>
+        <p>Your name: {this.state.firstName + ' ' + this.state.lastName}</p>
+        <p>Your age: {this.state.age}</p>
+        <p>Your gender: {this.state.gender}</p>
+        <p>Your destination: {this.state.destination}</p>
+        <p>
+          Your dietary restrictions: {`${this.state.vegetarian ? 'Vegetarian, ' : ''}${this.state.lactoseFree ? 'Lactose Free, ' : ''}${this.state.kosher ? 'Kosher' : ''}`}
+        </p>
+      </main>
     )
   }
-
 }
+
+
+
+// // lesson 41 - React Forms Part 1
+// // React Docs about Forms: https://reactjs.org/docs/forms.html
+// // Formik - library for react forms https://github.com/jaredpalmer/formik
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       firstName: '',
+//       lastName: '',
+//       isFriendly: true,
+//       gender: '',
+//       favColor: 'blue'
+//     };
+
+//     this.handleChange = this.handleChange.bind(this);
+
+//   }
+
+//   handleChange(event) {
+//     const { name, value, type, checked } = event.target;
+
+//     if (type === 'checkbox') {
+//       this.setState({
+//         [name]: checked
+//       })
+//     } else {
+//       this.setState({
+//         [name]: value
+//       })
+//     }
+
+//   }
+
+//   handleSubmit(event){
+//     event.preventDefault();
+//     console.log(event);
+
+//   }
+
+
+//   render() {
+//     return (
+//       <form onSubmit={this.handleSubmit}>
+//         <input
+//           type="text"
+//           name="firstName"
+//           value={this.state.firstName}
+//           placeholder="First Name"
+//           onChange={this.handleChange} />
+//         <br />
+//         <input
+//           type="text"
+//           name="lastName"
+//           value={this.state.lastName}
+//           placeholder="Last Name"
+//           onChange={this.handleChange} />
+//         <br />
+
+
+//         <textarea 
+//           value={"Some default value"}
+//           onChange={this.handleChange} />
+//         <br />
+
+//         <label>
+//           <input
+//             type="checkbox"
+//             name="isFriendly"
+//             checked={this.state.isFriendly}
+//             onChange={this.handleChange}
+//           /> Is Friendly?
+//         </label>
+//         <br />
+
+//         <label>
+//           <input
+//             type="radio"
+//             name="gender"
+//             value="male"
+//             checked={this.state.gender === 'male'}
+//             onChange={this.handleChange}
+//           /> Male
+//         </label>
+//         <label>
+//           <input
+//             type="radio"
+//             name="gender"
+//             value="female"
+//             checked={this.state.gender === 'female'}
+//             onChange={this.handleChange}
+//           /> Female
+//         </label>
+//         <br />
+
+//         <label>Favorite Color:</label> 
+//         <select 
+//           name="favColor"
+//           value={this.state.favColor}
+//           onChange={this.handleChange}>
+//           <option value="blue">Blue</option>
+//           <option value="green">Green</option>
+//           <option value="red">Red</option>
+//           <option value="orange">Orange</option>
+//           <option value="yellow">Yellow</option>
+//         </select>
+
+//         <h1>{this.state.firstName} {this.state.lastName}</h1>
+//         <h2>You are {this.state.gender}</h2>
+//         <h2>Your favorite color is {this.state.favColor}</h2>
+//         <button >Submit</button>
+//       </form>
+//     )
+//   }
+
+// }
 
 
 // // lesson 40 - Fetching data from an API with React
